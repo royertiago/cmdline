@@ -16,6 +16,7 @@ namespace cmdline {
     class args {
         std::vector< std::string > _args;
         std::string _program_name;
+        std::size_t _index;
 
         std::ostream * _log;
 
