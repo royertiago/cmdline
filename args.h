@@ -21,8 +21,21 @@ namespace cmdline {
         std::ostream * _log;
 
     public:
-
+        /* Constructs the argument vector from the given argc and argv.
+         * Note we do not change argv,
+         * nor assume argv[argc] is actually the null pointer.
+         *
+         * Observe that the avaliabre arguments will start from argv[1];
+         * argv[0] is stored as the program_name.
+         *
+         * By default, the logging device is std::clog.
+         */
         args( int argc, char const * const * argv );
+
+        /* Constructs an empty argument vector.
+         * You may use the args::push_back method to populate this object.
+         */
+        args();
 
         /* Returns the number of strings
          * in the argument vector.
@@ -43,7 +56,15 @@ namespace cmdline {
          */
         std::string next();
 
-        /* Sets/retrieves the log stream. */
+        /* Appends the given string to the argument vector.
+         */
+        void push_back( std::string );
+
+        /* Sets/retrieves the log stream.
+         * This stream should be used to indicate command line argument errors;
+         * for instance, operator>> writes to this log
+         * if it could not correctly parse some argument.
+         */
         void log( std::ostream & );
         std::ostream & log();
 

@@ -15,6 +15,11 @@ args::args( int argc, char const * const * argv ) {
     _log = &std::clog;
 }
 
+args::args() {
+    _index = 0;
+    _log = &std::clog;
+}
+
 std::size_t args::size() const {
     return _args.size() - _index;
 }
@@ -35,6 +40,10 @@ std::string args::next() {
 
 void args::log( std::ostream & os ) {
     _log = &os;
+}
+
+void args::push_back( std::string str ) {
+    _args.push_back( str );
 }
 
 std::ostream & args::log() {
