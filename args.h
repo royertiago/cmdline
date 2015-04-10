@@ -33,12 +33,13 @@ namespace cmdline {
         args( int argc, char const * const * argv );
 
         /* Constructs an empty argument vector.
-         * You may use the args::push_back method to populate this object.
+         * You need to use the args::push_back method to populate this object,
+         * and args::program_name to configure its name.
          */
         args();
 
-        /* Returns the number of strings
-         * in the argument vector.
+
+        /* Returns the number of remaining strings in the argument vector.
          */
         std::size_t size() const;
 
@@ -87,7 +88,6 @@ namespace cmdline {
         /* Sets/retrieves the program name. */
         void program_name( const std::string & );
         const std::string & program_name() const;
-
     };
 
 } // namespace cmdline

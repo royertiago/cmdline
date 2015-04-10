@@ -12,6 +12,18 @@
 
 namespace cmdline {
 
+    /* Uses the next() value of 'a' to write to 't'.
+     * Any error that occours are written to a.log().
+     *
+     * This function is capable of parsing any typename T
+     * for which operator>>( std::ostream&, T& ) is defined.
+     */
+    template <typename T>
+    args & operator>>( args & a, T & t );
+
+
+// Implementation
+
     template <typename T>
     args & operator>>( args & a, T & t ) {
         std::stringstream stream( a.next() );
