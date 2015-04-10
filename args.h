@@ -21,7 +21,7 @@ namespace cmdline {
 
     public:
 
-        args( int argc, char ** argv );
+        args( int argc, char const * const * argv );
 
         /* Returns the number of strings
          * in the argument vector.

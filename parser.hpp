@@ -14,19 +14,19 @@ namespace cmdline {
 
     template <typename T>
     args & operator>>( args & a, T & t ) {
-        std::sstream stream( a.next() );
+        std::stringstream stream( a.next() );
         stream >> t;
         if( !stream ) {
             a.log() << "Error: could not parse " << stream.str() << ".\n";
-            return args;
+            return a;
         }
         if( !stream.eof() ) {
             a.log() << "Warning: partially parsed string\n"
-                << "Unparsed bit: '" << stream.str.substr(stream.tellg())
+                << "Unparsed bit: '" << stream.str().substr(stream.tellg())
                 << "'\n";
-            return args;
+            return a;
         }
-        return args;
+        return a;
     }
 
 } // namespace cmdline
