@@ -33,13 +33,20 @@ std::string args::next() {
     return ret;
 }
 
-/* Sets/retrieves the log stream. */
 void args::log( std::ostream & os ) {
     _log = &os;
 }
 
 std::ostream & args::log() {
     return *_log;
+}
+
+void args::program_name( const std::string & name ) {
+    _program_name = name;
+}
+
+const std::string & args::program_name() const {
+    return _program_name;
 }
 
 } // namespace cmdline

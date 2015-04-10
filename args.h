@@ -47,6 +47,10 @@ namespace cmdline {
         void log( std::ostream & );
         std::ostream & log();
 
+        /* Sets/retrieves the program name. */
+        void program_name( const std::string & );
+        const std::string & program_name() const;
+
     };
 
 } // namespace cmdline
