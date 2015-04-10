@@ -38,6 +38,27 @@ std::string args::next() {
     return ret;
 }
 
+args args::subarg( std::size_t size ) {
+    args ret;
+    ret._args = std::vector<std::string>(
+        _args.begin() + _index,
+        _args.begin() + _index + size
+    );
+    _index += size;
+    return ret;
+}
+
+args args::subcmd( std::size_t size ) {
+    args ret;
+    ret.program_name( next() );
+    ret._args = std::vector<std::string>(
+        _args.begin() + _index,
+        _args.begin() + _index + size
+    );
+    _index += size;
+    return ret;
+}
+
 void args::log( std::ostream & os ) {
     _log = &os;
 }

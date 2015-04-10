@@ -60,6 +60,22 @@ namespace cmdline {
          */
         void push_back( std::string );
 
+        /* Constructs a "subargument" vector from the current position.
+         * The following 'size' arguments will be used as argument vectors.
+         *
+         * program_name will be empty.
+         *
+         * Advances the argument vector by 'size' positions.
+         */
+        args subarg( std::size_t size );
+
+        /* Same as subarg, but args::peek() will be used as program_name
+         * for the returned argument vector.
+         *
+         * This advances the argument vector by 'size + 1' positions.
+         */
+        args subcmd( std::size_t size );
+
         /* Sets/retrieves the log stream.
          * This stream should be used to indicate command line argument errors;
          * for instance, operator>> writes to this log
