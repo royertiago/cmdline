@@ -12,12 +12,12 @@ args::args( int argc, char const * const * argv ) {
         _args.push_back( argv[i] );
     _index = 0;
 
-    _log = &std::clog;
+    _log = &std::cerr;
 }
 
 args::args() {
     _index = 0;
-    _log = &std::clog;
+    _log = &std::cerr;
 }
 
 std::size_t args::size() const {

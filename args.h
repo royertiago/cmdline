@@ -28,7 +28,7 @@ namespace cmdline {
          * Observe that the avaliabre arguments will start from argv[1];
          * argv[0] is stored as the program_name.
          *
-         * By default, the logging device is std::clog.
+         * By default, the logging device is std::cerr.
          */
         args( int argc, char const * const * argv );
 
