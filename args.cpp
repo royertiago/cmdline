@@ -1,6 +1,7 @@
 /* Implementation of args.h
  */
 #include <iostream>
+#include <stdexcept>
 #include "args.h"
 
 namespace cmdline {
@@ -25,20 +26,30 @@ std::size_t args::size() const {
 }
 
 std::string args::peek() const {
+    if( _index >= _args.size() )
+        throw std::out_of_range( "No argument left to peek." );
+
     return _args[_index];
 }
 
 void args::shift() {
+    if( _index >= _args.size() )
+        throw std::out_of_range( "No arguments left to shift." );
+
     _index++;
 }
 
 std::string args::next() {
+    /* Peek takes care of throwing for us. */
     std::string ret = peek();
     shift();
     return ret;
 }
 
 args args::subarg( std::size_t size ) {
+    if( _index + size >= _args.size() + 1 )
+        throw std::out_of_range( "Not enough arguments to form subarg." );
+
     args ret;
     ret._args = std::vector<std::string>(
         _args.begin() + _index,
@@ -49,6 +60,9 @@ args args::subarg( std::size_t size ) {
 }
 
 args args::subcmd( std::size_t size ) {
+    if( _index + size >= _args.size() + 1 )
+        throw std::out_of_range( "Not enough arguments to form subarg." );
+
     args ret;
     ret.program_name( next() );
     ret._args = std::vector<std::string>(

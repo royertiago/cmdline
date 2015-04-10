@@ -5,6 +5,9 @@
  *
  * This class allows bash-style command line argument parsing
  * and helps the creation of sub-command lines.
+ *
+ * Strong exception safety guarantee: if any member throws an exception,
+ * the object is guaranteed to be left untouched.
  */
 
 #include <ostream>
@@ -45,15 +48,21 @@ namespace cmdline {
 
         /* Take a look into the next argument,
          * without changing the argument vector state.
+         *
+         * If there is no strings left, throws std::out_of_range.
          */
         std::string peek() const;
 
         /* Shifts the argument vector by one position.
+         *
+         * If there is no strings left, throws std::out_of_range.
          */
         void shift();
 
         /* Obtains the next string and shifts the argument vector
          * by one position.
+         *
+         * If there is no strings left, throws std::out_of_range.
          */
         std::string next();
 
@@ -67,6 +76,8 @@ namespace cmdline {
          * program_name will be empty.
          *
          * Advances the argument vector by 'size' positions.
+         *
+         * If there isn't enough strings left, throws std::out_of_range.
          */
         args subarg( std::size_t size );
 
@@ -74,6 +85,8 @@ namespace cmdline {
          * for the returned argument vector.
          *
          * This advances the argument vector by 'size + 1' positions.
+         *
+         * If there isn't enough strings left, throws std::out_of_range.
          */
         args subcmd( std::size_t size );
 
