@@ -81,14 +81,33 @@ namespace cmdline {
          */
         args subarg( std::size_t size );
 
+        /* Constructs a "subargument" vector beginning from the current position
+         * and ending when the boolean predicate is true.
+         *
+         * If the end of the argument vector is reached
+         * before the predicate being true,
+         * returns all the remaining arguments.
+         *
+         * program_name will be empty.
+         *
+         * Note that this will advance the argument vector.
+         */
+        args subarg_until( bool (* predicate )(const std::string&) );
+
         /* Same as subarg, but args::peek() will be used as program_name
          * for the returned argument vector.
+         * args::peek() itself will not appear in the returned vector.
          *
          * This advances the argument vector by 'size + 1' positions.
-         *
          * If there isn't enough strings left, throws std::out_of_range.
          */
         args subcmd( std::size_t size );
+
+        /* Same as subarg_until, but uses args::peek() as program_name.
+         * args::peek() itself will not be tested against the predicate,
+         * nor appear as an argument in the returned argument vector.
+         */
+        args subcmd_until( bool (* predicate )(const std::string&) );
 
         /* Sets/retrieves the log stream.
          * This stream should be used to indicate command line argument errors;

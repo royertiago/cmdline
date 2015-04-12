@@ -59,6 +59,19 @@ args args::subarg( std::size_t size ) {
     return ret;
 }
 
+args args::subarg_until( bool (* predicate )(const std::string&) ) {
+    args ret;
+    auto it = _args.begin() + _index;
+    unsigned size = 0;
+    for( ; it < _args.end(); ++it, ++size )
+        if( predicate( *it ) )
+            break;
+
+    ret._args = std::vector<std::string>( _args.begin() + _index, it );
+    _index += size;
+    return ret;
+}
+
 args args::subcmd( std::size_t size ) {
     if( _index + size >= _args.size() + 1 )
         throw std::out_of_range( "Not enough arguments to form subarg." );
@@ -69,6 +82,23 @@ args args::subcmd( std::size_t size ) {
         _args.begin() + _index,
         _args.begin() + _index + size
     );
+    _index += size;
+    return ret;
+}
+
+args args::subcmd_until( bool (* predicate )(const std::string&) ) {
+    if( _index > _args.size() )
+        throw std::out_of_range( "Not enough arguments to form subarg." );
+
+    args ret;
+    ret.program_name( next() );
+    auto it = _args.begin() + _index;
+    unsigned size = 0;
+    for( ; it < _args.end(); ++it, ++size )
+        if( predicate( *it ) )
+            break;
+
+    ret._args = std::vector<std::string>( _args.begin() + _index, it );
     _index += size;
     return ret;
 }
