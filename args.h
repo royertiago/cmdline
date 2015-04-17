@@ -57,6 +57,16 @@ namespace cmdline {
          */
         std::string peek() const;
 
+        /* Take a look into the index-th next argument.
+         * If index == 0, this function has the same effect as peek().
+         *
+         * Note that index may be negative;
+         * the method will retrieve previous arguments.
+         *
+         * Throws std::out_of_range if there is not enough arguments.
+         */
+        std::string peek( int index ) const;
+
         /* Shifts the argument vector by one position.
          *
          * If there is no strings left, throws std::out_of_range.

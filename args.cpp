@@ -36,6 +36,15 @@ std::string args::peek() const {
     return _args[_index];
 }
 
+std::string args::peek( int index ) const {
+    if( _index + index >= _args.size() )
+        throw std::out_of_range( "Argument vector too short." );
+    if( _index + index < 0 )
+        throw std::out_of_range( "The index must not become negative." );
+
+    return _args[_index + index];
+}
+
 void args::shift() {
     if( _index >= _args.size() )
         throw std::out_of_range( "No arguments left to shift." );
