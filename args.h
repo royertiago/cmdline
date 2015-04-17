@@ -46,6 +46,10 @@ namespace cmdline {
          */
         std::size_t size() const;
 
+        /* Returns the total number of strings stored in the argument vector.
+         */
+        std::size_t total_size() const;
+
         /* Take a look into the next argument,
          * without changing the argument vector state.
          *

@@ -25,6 +25,10 @@ std::size_t args::size() const {
     return _args.size() - _index;
 }
 
+std::size_t args::total_size() const {
+    return _args.size();
+}
+
 std::string args::peek() const {
     if( _index >= _args.size() )
         throw std::out_of_range( "No argument left to peek." );
