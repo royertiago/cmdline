@@ -13,6 +13,7 @@
 #include <ostream>
 #include <string>
 #include <vector>
+#include "cmdline/range_parser.h"
 
 namespace cmdline {
 
@@ -83,6 +84,24 @@ namespace cmdline {
         /* Appends the given string to the argument vector.
          */
         void push_back( std::string );
+
+        /* Retrurns a range parser to parse the next command line option.
+         *
+         * Use like this:
+         *  cmdline::args args( argc, argv );
+         *  int i;
+         *  if( args.next() == "--val" )
+         *      args.range( 2, 14 ) >> i;
+         *
+         * If i is not between 2 and 14, an error will be written to log().
+         * The other overload merely specifies the minimum value.
+         *
+         * Observation: the error message is based on the previous argument.
+         * If you are scanning several different arguments,
+         * use operator>> directly and supply your own error messages.
+         */
+        cmdline::range_parser range( double min );
+        cmdline::range_parser range( double min, double max );
 
         /* Constructs a "subargument" vector from the current position.
          * The following 'size' arguments will be used as argument vectors.

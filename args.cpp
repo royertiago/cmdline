@@ -59,6 +59,18 @@ std::string args::next() {
     return ret;
 }
 
+void args::push_back( std::string str ) {
+    _args.push_back( str );
+}
+
+range_parser args::range( double min ) {
+    return range_parser( *this, min );
+}
+
+range_parser args::range( double min, double max ) {
+    return range_parser( *this, min, max );
+}
+
 args args::subarg( std::size_t size ) {
     if( _index + size >= _args.size() + 1 )
         throw std::out_of_range( "Not enough arguments to form subarg." );
@@ -101,10 +113,6 @@ args args::subcmd_until( bool (* predicate )(const std::string&) ) {
 
 void args::log( std::ostream & os ) {
     _log = &os;
-}
-
-void args::push_back( std::string str ) {
-    _args.push_back( str );
 }
 
 std::ostream & args::log() {
