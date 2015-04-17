@@ -41,6 +41,25 @@ namespace cmdline {
         return a;
     }
 
+    template< typename Number >
+    void operator>>( range_parser && range, Number & n ) {
+        std::string error;
+        if( range._args.size() < range._args.total_size() )
+            error = "Error: argument to " + range._args.peek(-1);
+        else
+            error = "Error: number";
+
+        range._args >> n;
+        if( n < range.min ) {
+            range._args.log() << error << " must be greater than "
+                    << (Number) range.min << ".\n";
+        }
+        if( range.min < range.max && range.max < n ) {
+            range._args.log() << error << " must be smaller than "
+                    << (Number) range.max << ".\n";
+        }
+    }
+
 } // namespace cmdline
 
 #endif // CMDLINE_PARSER_HPP
