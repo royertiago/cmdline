@@ -41,6 +41,10 @@ namespace cmdline {
         return a;
     }
 
+    /* We must declare this operator as taking a rvalue reference
+     * instead of a normal reference
+     * because args::range return a range_parser by value,
+     * thus making it a rvalue, not a lvalue. */
     template< typename Number >
     void operator>>( range_parser && range, Number & n ) {
         std::string error;
